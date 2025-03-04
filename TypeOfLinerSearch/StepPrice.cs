@@ -17,8 +17,8 @@ namespace TypeOfLinerSearch
                 while (numbers >= 10)
                 {
                     int counter = 0;
-                    char[] seperator1 = numbers.ToString().ToCharArray();
-                    foreach (var result in seperator1)
+                    //char[] seperator1 = numbers.ToString().ToCharArray();
+                    foreach (char result in numbers.ToString())
                     {
                         counter += int.Parse(result.ToString());
                     }

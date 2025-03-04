@@ -31,7 +31,7 @@ namespace TypeOfLinerSearch
                 double amountOfLevel = (maxLevel[i + 1].maxLevel_Y - maxLevel[i].maxLevel_Y);
                 Save_level.Add((start_X, end_X, amountOfLevel));
                 Console.WriteLine($"start time = {start_X} and the end time = {end_X} " +
-                     $"and the different = {amountOfLevel}");
+                     $"y1 = {maxLevel[i].maxLevel_Y} , y2 = {maxLevel[i+1].maxLevel_Y}");
             }
             for (int i = 0; i < minLevel.Count - 1; i++)
             {
@@ -40,7 +40,7 @@ namespace TypeOfLinerSearch
                 double amountOfLevel = (minLevel[i + 1].minLevel_Y - minLevel[i].minLevel_Y);
                 Save_level.Add((start_X, end_X, amountOfLevel));
                 Console.WriteLine($"start time = {start_X} and the end time = {end_X} " +
-                    $"and the different = {amountOfLevel}");
+                    $"y1 = {minLevel[i].minLevel_Y} , y2 = {minLevel[i + 1].minLevel_Y}");
             }
 
             return Save_level;
