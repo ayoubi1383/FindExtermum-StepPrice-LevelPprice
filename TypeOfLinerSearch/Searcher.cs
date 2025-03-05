@@ -1,79 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace TypeOfLinerSearch
 {
     public class Searcher
     {
-        public List<(double X, double Y, string extermom)> GetExtremums(double[] x, double[] y)
-        {   
-            List<(double, double,string)>  save_extremums = new List<(double, double,string)>();
-            //برسی خالی بودن و یا تک مقدار بودن 
-            if (y.Length == 0)
+        public List<(double X, double Y, string extremum)> GetExtremums(double[] x, double[] y, int startIndex, int endIndex)
+        {
+            List<(double, double, string)> save_extremums = new List<(double, double, string)>();
+            //شرط برقراری ارایه 
+            if (startIndex < 0 || endIndex > y.Length || startIndex >= endIndex)
             {
-                Console.WriteLine("The array is empty.");
-                return save_extremums;
-            }
-            else if (y.Length == 1)
-            {
-                Console.WriteLine($"X = {x[0]} is the only element, considered " +
-                    $"both maximum and minimum with Y = {y[0]}");
-                save_extremums.Add((x[0], y[0] ,"both"));
+                Console.WriteLine("Invalid index range.");
                 return save_extremums;
             }
 
-            // بررسی اولین مقدار
-            if (y[0] > y[1])
+            if (endIndex - startIndex == 1)
             {
-                Console.WriteLine($"X = {x[0]} with Y = {y[0]} is a maximum (first element)");
-                save_extremums.Add((x[0], y[0], "maximum"));
+                Console.WriteLine($"X = {x[startIndex]} is the only element, considered both maximum and minimum with Y = {y[startIndex]}");
+                save_extremums.Add((x[startIndex], y[startIndex], "both"));
+                return save_extremums;
             }
-            else if (y[0] < y[1])
+            //نقطه اولیه 
+            if (y[startIndex] > y[startIndex + 1])
             {
-                Console.WriteLine($"X = {x[0]} with Y = {y[0]} is a minimum (first element)");
-                save_extremums.Add((x[0], y[0] , "minimum"));
+                Console.WriteLine($"X = {x[startIndex]} with Y = {y[startIndex]} is a maximum (first element)");
+                save_extremums.Add((x[startIndex], y[startIndex], "maximum"));
             }
-
-            // بررسی مقدارهای میانی
-            for (int i = 1; i < y.Length - 1; i++)
+            else if (y[startIndex] < y[startIndex + 1])
+            {
+                Console.WriteLine($"X = {x[startIndex]} with Y = {y[startIndex]} is a minimum (first element)");
+                save_extremums.Add((x[startIndex], y[startIndex], "minimum"));
+            }
+            //نقطه های میانی 
+            for (int i = startIndex + 1; i < endIndex - 1; i++)
             {
                 if (y[i] > y[i - 1] && y[i] > y[i + 1])
                 {
                     Console.WriteLine($"X = {x[i]} with Y = {y[i]} is a maximum");
-                    save_extremums.Add((x[i], y[i] ,"maximum"));
+                    save_extremums.Add((x[i], y[i], "maximum"));
                 }
                 else if (y[i] < y[i - 1] && y[i] < y[i + 1])
                 {
                     Console.WriteLine($"X = {x[i]} with Y = {y[i]} is a minimum");
-                    save_extremums.Add((x[i], y[i] , "minimum"));
+                    save_extremums.Add((x[i], y[i], "minimum"));
                 }
             }
-
-            // بررسی آخرین مقدار
-            int lastIndex = y.Length - 1;
-            if (y[lastIndex] > y[lastIndex - 1])
+            //نقطه پایانی 
+            if (y[endIndex - 1] > y[endIndex - 2])
             {
-                Console.WriteLine($"X = {x[lastIndex]} with Y = {y[lastIndex]} is a maximum (last element)");
-                save_extremums.Add((x[lastIndex], y[lastIndex], "maximum"));
+                Console.WriteLine($"X = {x[endIndex - 1]} with Y = {y[endIndex - 1]} is a maximum (last element)");
+                save_extremums.Add((x[endIndex - 1], y[endIndex - 1], "maximum"));
             }
-            else if (y[lastIndex] < y[lastIndex - 1])
+            else if (y[endIndex - 1] < y[endIndex - 2])
             {
-                Console.WriteLine($"X = {x[lastIndex]} with Y = {y[lastIndex]} is a minimum (last element)");
-                save_extremums.Add((x[lastIndex], y[lastIndex], "minimum"));
+                Console.WriteLine($"X = {x[endIndex - 1]} with Y = {y[endIndex - 1]} is a minimum (last element)");
+                save_extremums.Add((x[endIndex - 1], y[endIndex - 1], "minimum"));
             }
 
             return save_extremums;
         }
-
-
-
-
-
-
     }
 }
